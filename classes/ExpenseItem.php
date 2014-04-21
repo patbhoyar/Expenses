@@ -64,7 +64,7 @@ public function __construct($category, $itemName, $date, $paymentMode, $bankName
     $this->amount = $amount;
     $this->checkNumber = $checkNumber;
     
-    if ($expenseId === NULL) {
+    if (is_null($expenseId)) {
         DB::createNewExpense($category, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber);
     }
 }

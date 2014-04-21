@@ -30,6 +30,10 @@ class Bank{
     private static function createBank($bankName){
         
     }
+    
+    public static function getAllBanks(){
+        return DB::getAllBanks();
+    }
 
     
     

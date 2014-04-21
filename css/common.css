@@ -1,0 +1,53 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background: #efefef;
+    font-family: sans-serif;
+}
+
+#mainContainer{
+    clear: both;
+    width: 1000px;
+    height: auto;
+    margin: auto;
+}
+
+ul#menu{ 
+    list-style: none; 
+    clear: both;
+    width: 1000px;
+    height: 30px;
+}
+li{ 
+    float: left; 
+    margin-left: 30px;
+}
+
+td, th{
+    border-bottom: 1px solid black;
+    padding: 5px;
+    border-left: 1px solid black;
+    text-align: center;
+}
+
+th{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+input[text]{
+    border: 0px;
+}
+
+.bold{ font-weight: bold; }
+.category{ width: 160px; }
+.itemName{ width: 330px; }
+.date{ width: 85px; }
+
+.tableText{
+    text-align: right;
+}
+
+.tableValue{
+    text-align: left;
+}

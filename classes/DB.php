@@ -107,17 +107,39 @@ class DB {
      */
     public static function getAllBanks(){
         self::$instance = self::getInstance();
-        $query = self::$pdo->prepare("SELECT `id`, `bankName` FROM `banks`");
+        $query = self::$pdo->prepare("SELECT `id`, `bankName` FROM `bank`");
         $query->execute();
        
-        $categories = array();
+        $banks = array();
         
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            $category = new Category($row['categoryName'], $row['id']);
-            array_push($categories, $category);
+            $bank = new Bank($row['bankName'], $row['id']);
+            array_push($banks, $bank);
         }
         
-        return $categories;
+        return $banks;
+    }
+    
+    //====================================== PAYMENT MODES ======================================
+    
+    /**
+     * Creates an array of PaymentModes Objects
+     *
+     * @return array of 'PaymentMode' Objects
+     */
+    public static function getAllPaymentModes(){
+        self::$instance = self::getInstance();
+        $query = self::$pdo->prepare("SELECT `id`, `modeName` FROM `paymentMode`");
+        $query->execute();
+       
+        $paymentModes = array();
+        
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $paymentMode = new PaymentMode($row['modeName'], $row['id']);
+            array_push($paymentModes, $paymentMode);
+        }
+        
+        return $paymentModes;
     }
 }
 ?>
