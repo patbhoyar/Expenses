@@ -2,7 +2,8 @@
 
 class ExpenseItem{
     
-private $expenseId, $category, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber;
+
+    private $expenseId, $category, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber;
 
 public function getExpenseId() {
     return $this->expenseId;
@@ -46,6 +47,12 @@ public function getAmount() {
 public function setAmount($amount) {
     $this->amount = $amount;
 }
+public function getCheckNumber() {
+    return $this->checkNumber;
+}
+public function setCheckNumber($checkNumber) {
+    $this->checkNumber = $checkNumber;
+}
 
 public function __construct($category, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber, $expenseId = NULL) {
     $this->expenseId = $expenseId;
@@ -60,6 +67,10 @@ public function __construct($category, $itemName, $date, $paymentMode, $bankName
     if ($expenseId === NULL) {
         DB::createNewExpense($category, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber);
     }
+}
+
+public static function getAllExpenses() {
+    return DB::getAllExpenses();
 }
 
 public static function getExpenseById($id) {

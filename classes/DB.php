@@ -37,6 +37,20 @@ class DB {
         return self::$pdo->lastInsertId();
     }
     
+    public static function getAllExpenses(){
+        self::$instance = self::getInstance();
+        $query = self::$pdo->prepare("CALL `getAllExpenses`();");
+        $query->execute();
+        $expenseItems = array();
+        
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $expenseItem = new ExpenseItem($row['category'], $row['itemName'], $row['date'], $row['paymentMode'], $row['bankName'], $row['amount'], $row['checkNumber'], $row['id']);
+            array_push($expenseItems, $expenseItem);
+        }
+        
+        return $expenseItems;
+    }
+    
     public static function getExpenseById($id){
         self::$instance = self::getInstance();
         $query = self::$pdo->prepare("SELECT `category`, `itemName`, `date`, `paymentMode`, `bankName`, `amount`, `checkNumber` FROM `expense` WHERE id = :id");
