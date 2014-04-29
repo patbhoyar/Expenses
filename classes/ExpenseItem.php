@@ -1,9 +1,8 @@
 <?php
 
 class ExpenseItem{
-    
 
-    private $expenseId, $category, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber;
+        private $expenseId, $category, $categoryId, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber;
 
 public function getExpenseId() {
     return $this->expenseId;
@@ -16,6 +15,12 @@ public function getCategory() {
 }
 public function setCategory($category) {
     $this->category = $category;
+}
+public function getCategoryId() {
+    return $this->categoryId;
+}
+public function setCategoryId($categoryId) {
+    $this->categoryId = $categoryId;
 }
 public function getItemName() {
     return $this->itemName;
@@ -54,9 +59,10 @@ public function setCheckNumber($checkNumber) {
     $this->checkNumber = $checkNumber;
 }
 
-public function __construct($category, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber, $expenseId = NULL) {
+public function __construct($category, $itemName, $date, $paymentMode, $bankName, $amount, $checkNumber, $categoryId = NULL, $expenseId = NULL) {
     $this->expenseId = $expenseId;
     $this->category = $category;
+    $this->categoryId = $categoryId;
     $this->itemName = $itemName;
     $this->date = $date;
     $this->paymentMode = $paymentMode;
@@ -79,6 +85,10 @@ public static function getExpenseById($id) {
 
 public static function getExpensesByCategory($categoryId){
     return DB::getExpensesByCategory($categoryId);
+}
+
+public static function getBreakUpByCategory(){
+    return DB::getBreakUpByCategory();
 }
     
 }

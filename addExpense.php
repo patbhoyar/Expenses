@@ -1,11 +1,12 @@
 <?php
     require_once './init.php';
+    $pageTitle = "Add New Expense";
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
+        <title><?= $pageTitle; ?></title>
         <link href="css/common.css" rel="stylesheet"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -97,8 +98,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td class="tableValue">
+                        <td class="button">
+                            <input type="button" name="clear" id="clear" value="Clear All"/>
+                        </td>
+                        <td class="button">
                             <input type="submit" name="submit" id="submit" value="Add Expense"/>
                         </td>
                     </tr>

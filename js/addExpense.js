@@ -27,9 +27,18 @@ $(document).ready(function(){
                console.log(data);
            }
         });
-
-        //$.ajax({});
-
     });
-    
+  
+   $(document).on("click", "#clear", function(e){
+        e.preventDefault();
+        
+        $("#category").val(1);
+        $("#itemName").val("");
+        $("#datepicker").val("");
+        $("#amount").val("");
+        $("#paymentMode").val(1);
+        $("#bank").val(0);
+        $("#checkNumber").val("");
+   });
+   
 });

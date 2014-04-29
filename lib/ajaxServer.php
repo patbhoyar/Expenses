@@ -16,6 +16,9 @@ if (isset($_POST['request'])) {
             $exp = new ExpenseItem($category, $itemName, $newDate, $paymentMode, $bankName, $amount, $checkNumber);
             var_dump($exp);
             break;
+        case "chartBreakUp":
+            echo DB::getChartBreakUp();
+            break;
     }
 }
 

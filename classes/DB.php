@@ -10,6 +10,9 @@ class DB {
         'username'  =>  'root',
         'password'  =>  'root'
     );
+    private static $colors = array(
+        "#B0BF1A", "#7CB9E8", "#B284BE", "#AF002A", "#08E8DE", "#E52B50", "#6D9BC3", "#CD9575", "#8F9779", "#FDEE00", "#FF91AF", "#A1CAF1", "#3D0C02"
+    );
             
     
     function __construct() {
@@ -44,7 +47,7 @@ class DB {
         $expenseItems = array();
         
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            $expenseItem = new ExpenseItem($row['category'], $row['itemName'], $row['date'], $row['paymentMode'], $row['bankName'], $row['amount'], $row['checkNumber'], $row['id']);
+            $expenseItem = new ExpenseItem($row['category'], $row['itemName'], $row['date'], $row['paymentMode'], $row['bankName'], $row['amount'], $row['checkNumber'], $row['categoryId'], $row['expId']);
             array_push($expenseItems, $expenseItem);
         }
         
@@ -57,23 +60,56 @@ class DB {
         $query->execute(array(':id' => $id));
         $data = $query->fetch(PDO::FETCH_ASSOC);
         
-        $expense = new ExpenseItem($data['category'], $data['itemName'], $data['date'], $data['paymentMode'], $data['bankName'], $data['amount'], $data['checkNumber'], $id);
+        $expense = new ExpenseItem($data['category'], $data['itemName'], $data['date'], $data['paymentMode'], $data['bankName'], $data['amount'], $data['checkNumber'], NULL, $id);
         return $expense;
     }
     
     public static function getExpensesByCategory($categoryId){
         self::$instance = self::getInstance();
-        $query = self::$pdo->prepare("SELECT `id`, `category`, `itemName`, `date`, `paymentMode`, `bankName`, `amount`, `checkNumber` FROM `expense` WHERE category = :categoryId");
+        $query = self::$pdo->prepare("CALL getExpensesByCategory(:categoryId)");
         $query->execute(array(':categoryId' => $categoryId));
        
         $expenseItems = array();
         
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            $expenseItem = new ExpenseItem($row['category'], $row['itemName'], $row['date'], $row['paymentMode'], $row['bankName'], $row['amount'], $row['checkNumber'], $row['id']);
+            $expenseItem = new ExpenseItem($row['category'], $row['itemName'], $row['date'], $row['paymentMode'], $row['bankName'], $row['amount'], $row['checkNumber'], $row['categoryId'], $row['expId']);
             array_push($expenseItems, $expenseItem);
         }
         
         return $expenseItems;
+    }
+    
+    public static function getBreakUpByCategory(){
+        self::$instance = self::getInstance();
+        $query = self::$pdo->prepare("CALL getBreakupByCategory()");
+        $query->execute();
+        $breakUps = array();
+        $colorCounter = 0;
+        
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $breakUpItem = array(
+                'categoryId'    =>  $row['categoryId'],
+                'categoryName'  =>  $row['categoryName'],
+                'categoryTotal' =>  $row['total'],
+                'categoryColor' =>  self::$colors[$colorCounter++]
+            );
+            array_push($breakUps, $breakUpItem);
+        }
+        return $breakUps;
+    }
+    
+    public static function getChartBreakUp(){
+        self::$instance = self::getInstance();
+        $query = self::$pdo->prepare("CALL getBreakupByCategory()");
+        $query->execute();
+        $chartBreakUps = "[";
+        $colorCounter = 0;
+        
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $chartBreakUps .= "{value : ".$row['total'].", color : '".self::$colors[$colorCounter++]."'}, ";
+        }
+        $chartBreakUps .= "]";
+        return $chartBreakUps;
     }
     
     //====================================== CATEGORIES ======================================
