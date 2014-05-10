@@ -19,6 +19,16 @@ if (isset($_POST['request'])) {
         case "chartBreakUp":
             echo DB::getChartBreakUp();
             break;
+        case "allExpenses":
+            $expenses = DB::getAllExpenses();
+            $data = "[";
+            foreach ($expenses as $expense) {
+                $data .= $expense.",";
+            }
+            $data = substr($data, 0, -1);
+            $data .= "]";
+            echo $data;
+            break;
     }
 }
 

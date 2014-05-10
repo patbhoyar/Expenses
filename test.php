@@ -1,4 +1,65 @@
-<!doctype html>
+
+
+
+<?php
+    include_once 'init.php';
+    $data = json_encode(DB::getAllExpenses());
+    //var_dump($data);
+    //var_dump(DB::getAllExpenses());
+
+    //$expenseItem = new ExpenseItem("asd", "asd", "asd", "asd", "asd", "asd", "asd", "asd", 1);
+    //var_dump(json_encode($expenseItem, 1));
+    //var_dump($expenseItem->getJSON());
+    
+    
+    
+    $expenses = DB::getAllExpenses();
+            $data = "[";
+            foreach ($expenses as $expense) {
+                $data .= $expense.",";
+            }
+            substr($data, 0, -1);
+            $data .= "]";
+            echo $data;
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!doctype html>
 <html>
 	<head>
 		<title>Radar Chart</title>
@@ -12,7 +73,7 @@
 	<body>
 		<canvas id="canvas" height="450" width="450"></canvas>
 
-
+                
 	<script>
 
 		var pieData = 
@@ -22,4 +83,4 @@
 
 	</script>
 	</body>
-</html>
+</html>-->

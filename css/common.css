@@ -3,6 +3,9 @@ body{
     padding: 0px;
     background: #efefef;
     font-family: sans-serif;
+}
+
+a{
     text-decoration: none;
 }
 
@@ -26,7 +29,7 @@ ul#menu{
     clear: both;
     height: 30px;
     text-decoration: none;
-    width: 300px;
+    width: 450px;
     margin: auto;
 }
 li{ 

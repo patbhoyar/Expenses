@@ -91,6 +91,21 @@ public static function getBreakUpByCategory(){
     return DB::getBreakUpByCategory();
 }
     
+public function getJSON(){
+    $data = array(
+        'expenseId'     =>  $this->expenseId,
+        'category'      =>  $this->category,
+        'categoryId'    =>  $this->categoryId,
+        'itemName'      =>  $this->itemName,
+        'date'          => $this->date,
+        'paymentMode'   => $this->paymentMode,
+        'bankName'      => $this->bankName,
+        'amount'        => $this->amount,
+        'checkNumber'   => $this->checkNumber
+    );
+    return json_encode($data);
+}
+
 }
 
 ?>
