@@ -73,7 +73,7 @@ class DB {
         
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $expenseItem = new ExpenseItem($row['category'], $row['itemName'], $row['date'], $row['paymentMode'], $row['bankName'], $row['amount'], $row['checkNumber'], $row['categoryId'], $row['expId']);
-            array_push($expenseItems, $expenseItem);
+            array_push($expenseItems, $expenseItem->getJSON());
         }
         
         return $expenseItems;

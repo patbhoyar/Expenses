@@ -2,11 +2,11 @@
     require_once './init.php';
     $pageTitle = "All Expenses";
     
-    if (!isset($_GET['categoryId'])) {
-        $expenses = ExpenseItem::getAllExpenses();
-    }else{
-        $expenses = ExpenseItem::getExpensesByCategory(trim($_GET['categoryId']));
-    }
+//    if (!isset($_GET['categoryId'])) {
+//        $expenses = ExpenseItem::getAllExpenses();
+//    }else{
+//        $expenses = ExpenseItem::getExpensesByCategory(trim($_GET['categoryId']));
+//    }
 
     $table = "<table id='expensesTable'><tr><th id='categoryHeader'>Category</th><th id='itemNameHeader'>Item</th><th id='dateHeader'>Date</th><th id='amountHeader'>Amount</th>";
     $table .= "<th id='paymentModeHeader'>Payment Mode</th><th id='bankHeader'>Bank</th><th id='checkHeader'>Check No</th></tr></table>";

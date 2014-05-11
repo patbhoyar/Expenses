@@ -27,17 +27,32 @@ $(document).ready(function(){
         
         $("#expensesTable").append(tableData);
     }
-   
-    $.ajax({
-        url: 'lib/ajaxServer.php',
-        type: 'post',
-        data: {'request': 'allExpenses' },
-        success: function(msg){
-            data = $.parseJSON(msg);
-            sortByDate(data, 'desc');
-            
-            createTable();
+    
+    var cid = getParameter('categoryId');
+    log(cid);
+    if (typeof(cid) === 'undefined'){
+        $.ajax({
+            url: 'lib/ajaxServer.php',
+            type: 'post',
+            data: {'request': 'allExpenses' },
+            success: function(msg){
+                data = $.parseJSON(msg);
+                sortByDate(data, 'desc');
+                createTable();
         }});
+    }else{
+        $.ajax({
+            url: 'lib/ajaxServer.php',
+            type: 'post',
+            data: {'request': 'getExpensesByCategory', 'categoryId': cid },
+            success: function(msg){
+                data = $.parseJSON(msg);
+                sortByDate(data, 'desc');
+                createTable();
+        }});
+    }
+   
+    
     
    $(document).on("click", "#categoryHeader", function(){
        
@@ -77,5 +92,7 @@ $(document).ready(function(){
         
        createTable();
    });
+   
+   
     
 });

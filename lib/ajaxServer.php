@@ -20,16 +20,27 @@ if (isset($_POST['request'])) {
             echo DB::getChartBreakUp();
             break;
         case "allExpenses":
-            $expenses = DB::getAllExpenses();
-            $data = "[";
-            foreach ($expenses as $expense) {
-                $data .= $expense.",";
-            }
-            $data = substr($data, 0, -1);
-            $data .= "]";
-            echo $data;
+            echo getExpense('getAllExpenses');
+            break;
+        case 'getExpensesByCategory':
+            echo getExpense('getExpensesByCategory', trim($_POST['categoryId']));
             break;
     }
+}
+
+function getExpense($param, $cId = null) {
+    if (is_null($cId)) {
+        $expenses = ExpenseItem::$param();
+    }else{
+        $expenses = ExpenseItem::$param($cId);
+    }
+    $data = "[";
+    foreach ($expenses as $expense) {
+        $data .= $expense.",";
+    }
+    $data = substr($data, 0, -1);
+    $data .= "]";
+    return $data;
 }
 
 ?>
